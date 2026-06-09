@@ -434,9 +434,9 @@
         window.onload = initSelectOptions;
 
         // ==========================================
-        // 【重要】請將下方網址替換成你的 Google Apps Script 網址
+        // 【重要】已替換為正確的 Google Apps Script 網址
         // ==========================================
-        const scriptURL = 'https://script.google.com/macros/s/AKfycby6ClNo1-Nn7KvNoKpyqhGycS0o_N6gLAOcBh-isBHJjIDvQME_YVb6twlur0q70CRa/exec';
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbz0mIvcADAvPHaPnQvchyKOu9P6EMaere-At9hFYBpMaRwGQ53piNKLFoHAN9NIOQ4/exec';
 
         // 表單送出事件：將資料打包送到 Google 試算表
         form.addEventListener('submit', function(e) {
@@ -457,8 +457,8 @@
             formData.append('itemQuantity', document.getElementById('itemQuantity').value);
             formData.append('itemPrice', document.getElementById('itemPrice').value);
 
-            // 透過 fetch API 發送資料
-            fetch(scriptURL, { method: 'POST', body: formData })
+            // 透過 fetch API 發送資料 (加入 mode: 'no-cors' 繞過 Google 的安全阻擋)
+            fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
                 .then(response => {
                     alert('🎉 申請成功！資料已送出。');
                     // 清空表單並恢復預設按鈕
