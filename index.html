@@ -284,12 +284,19 @@
                     </div>
                 </div>
 
-                <!-- 申請部門 -->
+                <!-- 申請部門 (改為下拉選單) -->
                 <div class="input-group">
                     <label for="department">申請部門</label>
-                    <div class="input-wrapper">
+                    <div class="input-wrapper select-wrapper">
                         <i class="fa-regular fa-building"></i>
-                        <input type="text" id="department" placeholder="例如：行銷部" required>
+                        <select id="department" required>
+                            <option value="" disabled selected>-- 請選擇所屬部門 --</option>
+                            <option value="行銷部">行銷部</option>
+                            <option value="業務部">業務部</option>
+                            <option value="人事部">人事部</option>
+                            <option value="資訊部">資訊部</option>
+                            <option value="總務部">總務部</option>
+                        </select>
                     </div>
                 </div>
 
@@ -430,6 +437,16 @@
         // 監聽器：當數量改變時，即時重新計算金額
         itemQuantityInput.addEventListener('input', updateTotalPrice);
 
+        // 產生獨立的訂單編號 (例如：PO-20260609-1234)
+        function generateOrderId() {
+            const date = new Date();
+            const dateString = date.getFullYear() + 
+                               String(date.getMonth() + 1).padStart(2, '0') + 
+                               String(date.getDate()).padStart(2, '0');
+            const randomCode = Math.floor(1000 + Math.random() * 9000); // 4位隨機數
+            return `PO-${dateString}-${randomCode}`;
+        }
+
         // 頁面載入時執行初始化
         window.onload = initSelectOptions;
 
@@ -449,8 +466,9 @@
             // 取得下拉選單裡面的「商品名稱」文字 (而不是 ID)
             const selectedProductName = itemSelect.options[itemSelect.selectedIndex].text;
 
-            // 建立要送出的資料表
+            // 建立要送出的資料表，並加入自動生成的訂單編號
             const formData = new FormData();
+            formData.append('orderId', generateOrderId());
             formData.append('applicantName', document.getElementById('applicantName').value);
             formData.append('department', document.getElementById('department').value);
             formData.append('itemName', selectedProductName);
