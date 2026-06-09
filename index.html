@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- 【修改】更改網站標題 -->
-    <title>一方生活同事採購網 | 企業內部採購系統</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>一方生活 | 同事採購網</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --primary: #2563eb;
-            --secondary: #ef4444; /* 用於「新品」標籤 */
-            --bg-color: #f8fafc;
-            --sidebar-bg: #ffffff;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
+            /* 日系極簡 / 無印風 大地色系 */
+            --primary: #768B72;         /* 鼠尾草綠 (主色) */
+            --primary-hover: #5A6D56;   /* 深綠色 */
+            --bg-color: #F9FAF9;        /* 極淡的燕麥白背景 */
+            --card-bg: #FFFFFF;         /* 純白卡片 */
+            --text-main: #333D31;       /* 墨綠灰 (溫和的深色) */
+            --text-muted: #9BA399;      /* 淺綠灰 */
+            --border: #E8EBE7;          /* 極淡的邊線 */
+            --input-bg: #F4F5F4;        /* 輸入框微灰底色 */
         }
 
         body {
@@ -27,12 +28,13 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            letter-spacing: 0.5px;
         }
 
-        /* 頂部導覽列 */
+        /* 頂部導覽列：極簡無陰影，僅用底線區隔 */
         header {
-            background: #fff;
-            padding: 15px 40px;
+            background: var(--card-bg);
+            padding: 15px 50px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -42,120 +44,329 @@
             z-index: 1000;
         }
 
-        /* 【修改】更改 Logo 名稱 */
-        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 10px; }
+        .logo { 
+            font-size: 1.3rem; 
+            font-weight: 700; 
+            color: var(--text-main); 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            letter-spacing: 2px;
+        }
+
+        .logo i {
+            color: var(--primary);
+        }
+
+        .user-info {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
         /* 主容器佈局 */
         .main-container {
             display: grid;
-            grid-template-columns: 240px 1fr; /* 左側固定寬度 */
-            gap: 30px;
-            padding: 30px 40px;
+            grid-template-columns: 200px 1fr;
+            gap: 50px;
+            padding: 40px 50px;
             max-width: 1400px;
             margin: 0 auto;
             width: 100%;
             box-sizing: border-box;
         }
 
-        /* 左側分類選單 */
+        /* 左側分類選單：極簡線條風 */
         aside {
-            background: var(--sidebar-bg);
-            border-radius: 12px;
-            padding: 20px;
-            height: fit-content;
-            border: 1px solid var(--border);
             position: sticky;
             top: 100px;
+            height: fit-content;
         }
 
-        .category-title { font-weight: 700; font-size: 1.1rem; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; color: var(--secondary); }
-        .category-list { list-style: none; padding: 0; margin: 0; }
-        .category-item { padding: 12px 10px; border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: all 0.2s; color: var(--text-muted); font-size: 0.95rem; }
-        .category-item:hover { color: var(--primary); background: #f0f7ff; border-radius: 6px; }
-        .category-item.active { color: var(--primary); font-weight: 700; background: #f0f7ff; border-radius: 6px; }
+        .category-title { 
+            font-weight: 700; 
+            font-size: 0.95rem; 
+            margin-bottom: 20px; 
+            color: var(--text-muted); 
+            letter-spacing: 1px;
+        }
+        
+        .category-list { list-style: none; padding: 0; margin: 0; border-left: 1px solid var(--border); }
+        
+        .category-item { 
+            padding: 12px 16px; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            color: var(--text-main); 
+            font-size: 0.95rem; 
+            border-left: 2px solid transparent;
+            margin-left: -1px;
+        }
+        
+        .category-item:hover { 
+            color: var(--primary); 
+            background: #F4F5F4;
+        }
+        
+        .category-item.active { 
+            color: var(--primary); 
+            font-weight: 700; 
+            border-left: 2px solid var(--primary);
+            background: transparent;
+        }
 
         /* 右側主要內容區 */
-        main { display: flex; flex-direction: column; gap: 30px; }
+        main { display: flex; flex-direction: column; gap: 50px; }
 
-        /* Banner 橫幅 */
+        /* Banner 橫幅：柔和圓角 */
         .hero-banner {
             width: 100%;
-            border-radius: 16px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            background-color: var(--primary);
         }
-        .hero-banner img { width: 100%; display: block; object-fit: cover; height: 250px; }
+        
+        .hero-banner img { 
+            width: 100%; 
+            display: block; 
+            object-fit: cover; 
+        }
 
         /* 商品區塊標題 */
-        .section-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 20px; border-left: 5px solid var(--primary); padding-left: 15px; display: flex; align-items: center; justify-content: space-between; }
+        .section-title { 
+            font-size: 1.4rem; 
+            font-weight: 500; 
+            margin-bottom: 25px; 
+            display: flex; 
+            align-items: center; 
+            color: var(--text-main);
+            letter-spacing: 1px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+            margin-left: 25px;
+        }
 
         /* 商品格網 */
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 20px;
+            gap: 30px;
         }
 
-        /* 商品卡片 */
+        /* 極簡商品卡片：移除邊框，僅用微弱陰影 */
         .product-card {
-            background: #fff;
+            background: transparent;
             border-radius: 12px;
-            border: 1px solid var(--border);
             overflow: hidden;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.3s ease;
             position: relative;
         }
-        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
         
-        .badge-new {
-            position: absolute; top: 10px; right: 10px; background: var(--secondary); color: #fff; 
-            padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; z-index: 10;
+        .product-card:hover { 
+            transform: translateY(-4px); 
         }
 
-        .img-box { width: 100%; height: 180px; background: #f8fafc; display: flex; align-items: center; justify-content: center; }
-        .img-box img { width: 80%; height: 80%; object-fit: contain; }
+        .img-box { 
+            width: 100%; 
+            aspect-ratio: 1 / 1;
+            background: var(--card-bg); 
+            border-radius: 12px;
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 20px;
+            box-sizing: border-box;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            margin-bottom: 15px;
+        }
+        
+        .img-box img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: contain; 
+            transition: transform 0.5s ease;
+        }
+        
+        .product-card:hover .img-box img {
+            transform: scale(1.05);
+        }
 
-        .info-box { padding: 15px; }
-        .item-id { font-size: 0.8rem; color: #94a3b8; margin-bottom: 5px; }
-        .item-name { font-weight: 500; font-size: 0.95rem; height: 2.8rem; overflow: hidden; margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
-        .item-price { color: var(--secondary); font-weight: 700; font-size: 1.1rem; }
+        .info-box { padding: 0 5px; }
+        .item-id { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 6px; letter-spacing: 0.5px; }
+        .item-name { font-weight: 500; font-size: 0.95rem; height: 2.8rem; overflow: hidden; margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.5; }
+        .item-price { color: var(--text-main); font-weight: 700; font-size: 1.1rem; }
 
         .add-btn {
-            width: 100%; padding: 10px; background: var(--primary); color: #fff; border: none; 
-            border-radius: 8px; margin-top: 10px; cursor: pointer; font-weight: 500; transition: background 0.2s;
+            width: 100%; 
+            padding: 10px; 
+            background: transparent; 
+            color: var(--primary); 
+            border: 1px solid var(--primary); 
+            border-radius: 8px; 
+            margin-top: 15px; 
+            cursor: pointer; 
+            font-weight: 500; 
+            transition: all 0.3s ease;
         }
-        .add-btn:hover { background: var(--primary-hover); }
+        .add-btn:hover { 
+            background: var(--primary); 
+            color: #fff; 
+        }
 
-        /* 底部表單區塊 */
-        .form-section-container { margin-top: 50px; scroll-margin-top: 100px; padding-bottom: 100px;}
-        .ecommerce-card { background: #fff; border-radius: 20px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); display: flex; overflow: hidden; border: 1px solid var(--border); }
-        .product-showcase { flex: 1; background: #f8fafc; padding: 40px; display: flex; flex-direction: column; align-items: center; border-right: 1px solid var(--border); }
-        .form-section { flex: 1.2; padding: 40px; }
+        /* 底部表單區塊 - 重構為高級質感卡片 */
+        .form-section-container { 
+            margin-top: 20px; 
+            scroll-margin-top: 120px; 
+            padding-bottom: 100px;
+        }
+
+        .ecommerce-card { 
+            background: var(--card-bg); 
+            border-radius: 24px; 
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.03); 
+            display: flex; 
+            overflow: hidden; 
+            border: 1px solid rgba(0,0,0,0.01);
+            padding: 20px;
+        }
         
-        .input-group { margin-bottom: 15px; }
-        .input-group label { display: block; margin-bottom: 5px; font-size: 0.9rem; font-weight: 500; }
-        .input-group input, .input-group select { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border); box-sizing: border-box;}
-        .submit-btn { width: 100%; padding: 15px; background: var(--primary); color: #fff; border: none; border-radius: 10px; cursor: pointer; font-weight: 700; }
+        /* 表單左側：商品摘要區 */
+        .product-showcase { 
+            flex: 1; 
+            background: transparent; 
+            padding: 40px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
+            border-right: 1px solid var(--border); 
+        }
 
-        /* 選單 Optgroup 樣式微調 */
-        select optgroup { font-weight: 700; color: var(--primary); }
+        .preview-image-wrapper {
+            width: 240px; 
+            height: 240px; 
+            background: var(--input-bg); 
+            border-radius: 16px; 
+            margin-bottom: 30px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            overflow: hidden;
+        }
+
+        /* 預設的圖標狀態 (未選擇商品時顯示) */
+        .placeholder-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #C2C9C0;
+        }
+        .placeholder-state i { font-size: 3rem; margin-bottom: 15px; }
+        .placeholder-state span { font-size: 0.9rem; font-weight: 500; letter-spacing: 1px; }
+
+        #form-display-title { 
+            font-weight: 500; 
+            font-size: 1.1rem; 
+            color: var(--text-main); 
+            text-align: center; 
+            line-height: 1.6; 
+        }
+        
+        #form-display-price { 
+            color: var(--primary); 
+            font-size: 1.8rem; 
+            font-weight: 700; 
+            margin-top: 15px; 
+        }
+        
+        /* 表單右側：填寫區 */
+        .form-section { flex: 1.5; padding: 40px 60px; }
+        
+        .input-group { margin-bottom: 25px; }
+        .input-group label { display: block; margin-bottom: 10px; font-size: 0.9rem; font-weight: 500; color: var(--text-muted); }
+        
+        /* 質感輸入框設計 */
+        .input-group input, .input-group select { 
+            width: 100%; 
+            padding: 16px 20px; 
+            border-radius: 12px; 
+            border: 1px solid transparent; 
+            background-color: var(--input-bg);
+            box-sizing: border-box;
+            font-family: inherit;
+            font-size: 1rem;
+            color: var(--text-main);
+            transition: all 0.3s ease;
+        }
+        
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            background-color: #fff;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(118, 139, 114, 0.1);
+        }
+
+        .input-group input[readonly] {
+            background-color: transparent;
+            border: 1px solid var(--border);
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .submit-btn { 
+            width: 100%; 
+            padding: 18px; 
+            background: var(--text-main); 
+            color: #fff; 
+            border: none; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            font-weight: 500; 
+            font-size: 1.1rem;
+            margin-top: 20px;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(118, 139, 114, 0.2);
+        }
+
+        select optgroup { font-weight: 700; color: var(--text-muted); }
         select option { color: var(--text-main); font-weight: 400; }
 
-        @media (max-width: 1000px) { .main-container { grid-template-columns: 1fr; } aside { display: none; } .ecommerce-card { flex-direction: column; } }
+        @media (max-width: 1000px) { 
+            .main-container { grid-template-columns: 1fr; padding: 20px; } 
+            aside { display: none; } 
+            .ecommerce-card { flex-direction: column; padding: 0; } 
+            .product-showcase { padding: 40px 20px; border-right: none; border-bottom: 1px solid var(--border); }
+            .form-section { padding: 40px 20px; }
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo"><i class="fa-solid fa-cart-shopping"></i> 一方生活同事採購網</div>
-        <div class="user-info"><i class="fa-solid fa-circle-user"></i> 您好，同仁</div>
+        <div class="logo"><i class="fa-solid fa-leaf"></i> 一方生活</div>
+        <div class="user-info">同事採購專區</div>
     </header>
 
     <div class="main-container">
         
-        <!-- 左側分類選單：加上了 onClick 動態過濾功能 -->
+        <!-- 左側極簡分類選單 -->
         <aside>
-            <div class="category-title"><i class="fa-solid fa-bars"></i> 產品分類</div>
+            <div class="category-title">商品分類</div>
             <ul class="category-list" id="category-list">
                 <li class="category-item active" onclick="filterCategory('全部商品')">全部商品</li>
                 <li class="category-item" onclick="filterCategory('辦公文具')">辦公文具</li>
@@ -169,61 +380,72 @@
         </aside>
 
         <main>
+            <!-- 讀取同一個資料夾下的 banner.jpg (請務必將圖片上傳至 GitHub) -->
             <div class="hero-banner">
-                <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1200&q=80" alt="Banner">
+                <img src="./banner.jpg" onerror="this.src='https://drive.google.com/file/d/1TXBykMuvHRxH_qZLzxyPcigyEAOa6uGW/view?usp=sharing'" alt="一方生活">
             </div>
 
-            <!-- 動態改變標題 -->
             <div class="section-title" id="current-category-title">全部商品</div>
             
-            <!-- 商品動態生成的容器 -->
             <div class="product-grid" id="product-grid-container">
-                <!-- 商品卡片會由下方 JavaScript 自動渲染到這裡 -->
+                <!-- 商品卡片 -->
             </div>
 
+            <!-- 高級質感採購單 -->
             <div id="apply-form-anchor" class="form-section-container">
-                <div class="section-title">填寫採購申請</div>
+                <div class="section-title" style="font-size: 1.3rem;">採購申請單</div>
                 <div class="ecommerce-card">
+                    
                     <div class="product-showcase">
-                        <div style="width: 250px; height: 250px; background: #fff; border-radius: 12px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #e2e8f0;">
-                            <img id="form-display-image" src="https://images.unsplash.com/photo-1583484963886-92f586954211?auto=format&fit=crop&w=400&q=80" style="width: 100%; object-fit: contain;">
+                        <div class="preview-image-wrapper">
+                            <!-- 預設狀態：優雅的圖示與文字 -->
+                            <div id="placeholder-state" class="placeholder-state">
+                                <i class="fa-solid fa-seedling"></i>
+                                <span>尚未選擇商品</span>
+                            </div>
+                            <!-- 選擇後顯示的圖片 (預設隱藏) -->
+                            <img id="form-display-image" src="" style="display: none; width: 100%; height: 100%; object-fit: contain; padding: 15px; box-sizing: border-box;">
                         </div>
-                        <div id="form-display-title" style="font-weight: 700; font-size: 1.2rem;">請在上方點選商品</div>
-                        <div id="form-display-price" style="color: var(--primary); font-size: 1.5rem; font-weight: 700; margin-top: 10px;">NT$ 0</div>
+                        <div id="form-display-title">請在上方選擇您需要的物品</div>
+                        <div id="form-display-price">NT$ 0</div>
                     </div>
 
                     <div class="form-section">
                         <form id="purchase-form">
                             <div class="input-group">
                                 <label>申請人姓名</label>
-                                <input type="text" id="applicantName" placeholder="王小明" required>
+                                <input type="text" id="applicantName" placeholder="填寫真實姓名" required>
                             </div>
                             <div class="input-group">
-                                <label>部門</label>
+                                <label>所屬部門</label>
                                 <select id="department" required>
-                                    <option value="" disabled selected>請選擇部門</option>
+                                    <option value="" disabled selected>選擇您的部門</option>
                                     <option value="行銷部">行銷部</option>
                                     <option value="資訊部">資訊部</option>
                                     <option value="總務部">總務部</option>
                                     <option value="人資部">人資部</option>
                                     <option value="業務部">業務部</option>
+                                    <option value="設計部">設計部</option>
                                 </select>
                             </div>
                             <div class="input-group">
-                                <label>物品名稱</label>
+                                <label>申請物品</label>
                                 <select id="itemSelect" required onchange="onManualSelect()">
-                                    <!-- 選項會由 JavaScript 根據分類自動生成 optgroup -->
+                                    <!-- 選項由 JS 生成 -->
                                 </select>
                             </div>
                             <div class="input-group">
-                                <label>申請數量</label>
+                                <label>需求數量</label>
                                 <input type="number" id="itemQuantity" min="1" value="1" required oninput="calculateTotal()">
                             </div>
                             <div class="input-group">
-                                <label>總金額 (自動計算)</label>
-                                <input type="text" id="itemPrice" readonly>
+                                <label>預估總金額</label>
+                                <!-- 隱藏的 input 負責傳送資料給後台 -->
+                                <input type="hidden" id="itemPrice">
+                                <!-- 唯讀的 input 負責顯示漂亮的金額給使用者看 -->
+                                <input type="text" id="itemPriceDisplay" placeholder="NT$ 0" readonly>
                             </div>
-                            <button type="submit" class="submit-btn" id="submit-btn">送出採購申請</button>
+                            <button type="submit" class="submit-btn" id="submit-btn">確認送出</button>
                         </form>
                     </div>
                 </div>
@@ -233,59 +455,53 @@
 
     <script>
         // ==========================================
-        // 【新增】超豐富的商品資料庫（包含各個分類）
-        // 之後你可以隨時在這裡修改或新增商品
+        // 質感商品資料庫 (已移除 New 標籤屬性)
         // ==========================================
         const products = [
             // 辦公文具
-            { id: "S001", category: "辦公文具", name: "紅龍牌 原子筆 (黑/一盒50入)", price: 150, isNew: true, image: "https://images.unsplash.com/photo-1585336261022-680e295ce3fe?auto=format&fit=crop&w=400&q=80" },
-            { id: "S002", category: "辦公文具", name: "3M 狠黏便利貼 (黃/5本入)", price: 250, isNew: false, image: "https://images.unsplash.com/photo-1531346878377-3e110439f046?auto=format&fit=crop&w=400&q=80" },
-            { id: "S003", category: "辦公文具", name: "PLUS 智慧型滾輪修正帶 (藍)", price: 120, isNew: false, image: "https://images.unsplash.com/photo-1520004434532-668416a08753?auto=format&fit=crop&w=400&q=80" },
+            { id: "S001", category: "辦公文具", name: "紅龍牌 原子筆 (黑/一盒50入)", price: 150, image: "https://images.unsplash.com/photo-1585336261022-680e295ce3fe?auto=format&fit=crop&w=400&q=80" },
+            { id: "S002", category: "辦公文具", name: "3M 狠黏便利貼 (黃/5本入)", price: 250, image: "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=400&q=80" },
+            { id: "S003", category: "辦公文具", name: "PLUS 智慧型滾輪修正帶 (藍)", price: 120, image: "https://images.unsplash.com/photo-1520004434532-668416a08753?auto=format&fit=crop&w=400&q=80" },
             
             // 影印紙張
-            { id: "P001", category: "影印紙張", name: "Double A 影印紙 (A4/一箱5包)", price: 650, isNew: true, image: "https://images.unsplash.com/photo-1586075010923-2dd4570fb338?auto=format&fit=crop&w=400&q=80" },
-            { id: "P002", category: "影印紙張", name: "Paperline 影印紙 (A3/一箱5包)", price: 1200, isNew: false, image: "https://images.unsplash.com/photo-1586075010923-2dd4570fb338?auto=format&fit=crop&w=400&q=80" }, /* 圖片共用示意 */
+            { id: "P001", category: "影印紙張", name: "Double A 影印紙 (A4/一箱5包)", price: 650, image: "https://images.unsplash.com/photo-1586075010923-2dd4570fb338?auto=format&fit=crop&w=400&q=80" },
+            { id: "P002", category: "影印紙張", name: "Paperline 影印紙 (A3/一箱5包)", price: 1200, image: "https://images.unsplash.com/photo-1586075010923-2dd4570fb338?auto=format&fit=crop&w=400&q=80" }, 
             
             // 檔案收納
-            { id: "F001", category: "檔案收納", name: "透明 L型資料夾 (100入)", price: 300, isNew: false, image: "https://images.unsplash.com/photo-1616628188550-808682f3926d?auto=format&fit=crop&w=400&q=80" },
-            { id: "F002", category: "檔案收納", name: "二孔環保檔案夾 (藍/10入)", price: 450, isNew: false, image: "https://images.unsplash.com/photo-1616628188550-808682f3926d?auto=format&fit=crop&w=400&q=80" }, /* 圖片共用示意 */
+            { id: "F001", category: "檔案收納", name: "透明 L型資料夾 (100入)", price: 300, image: "https://images.unsplash.com/photo-1616628188550-808682f3926d?auto=format&fit=crop&w=400&q=80" },
+            { id: "F002", category: "檔案收納", name: "二孔環保檔案夾 (綠/10入)", price: 450, image: "https://images.unsplash.com/photo-1616628188550-808682f3926d?auto=format&fit=crop&w=400&q=80" }, 
 
             // 電腦週邊
-            { id: "C001", category: "電腦週邊", name: "羅技 M331 靜音無線滑鼠 (黑)", price: 549, isNew: false, image: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?auto=format&fit=crop&w=400&q=80" },
-            { id: "C002", category: "電腦週邊", name: "羅技 K380 跨平台藍牙鍵盤", price: 990, isNew: true, image: "https://images.unsplash.com/photo-1595225476474-87563907a212?auto=format&fit=crop&w=400&q=80" },
+            { id: "C001", category: "電腦週邊", name: "羅技 M331 靜音無線滑鼠 (黑)", price: 549, image: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?auto=format&fit=crop&w=400&q=80" },
+            { id: "C002", category: "電腦週邊", name: "羅技 K380 跨平台藍牙鍵盤 (珍珠白)", price: 990, image: "https://images.unsplash.com/photo-1595225476474-87563907a212?auto=format&fit=crop&w=400&q=80" },
             
             // 生活用品
-            { id: "L001", category: "生活用品", name: "舒潔 抽取式衛生紙 (1箱72包)", price: 899, isNew: false, image: "https://images.unsplash.com/photo-1584556812952-905ffd0c611a?auto=format&fit=crop&w=400&q=80" },
-            { id: "L002", category: "生活用品", name: "五月花 輕柔擦手紙 (1箱20包)", price: 650, isNew: false, image: "https://images.unsplash.com/photo-1584556812952-905ffd0c611a?auto=format&fit=crop&w=400&q=80" }, /* 圖片共用示意 */
+            { id: "L001", category: "生活用品", name: "舒潔 抽取式衛生紙 (1箱72包)", price: 899, image: "https://images.unsplash.com/photo-1584556812952-905ffd0c611a?auto=format&fit=crop&w=400&q=80" },
+            { id: "L002", category: "生活用品", name: "五月花 輕柔擦手紙 (1箱20包)", price: 650, image: "https://images.unsplash.com/photo-1584556812952-905ffd0c611a?auto=format&fit=crop&w=400&q=80" }, 
 
             // 茶水間備品
-            { id: "T001", category: "茶水間備品", name: "UCC 職人經典濾掛式咖啡 (50入)", price: 750, isNew: true, image: "https://images.unsplash.com/photo-1559525839-b184a4d698c7?auto=format&fit=crop&w=400&q=80" },
-            { id: "T002", category: "茶水間備品", name: "天仁茗茶 醇品紅茶包 (100入)", price: 350, isNew: false, image: "https://images.unsplash.com/photo-1559525839-b184a4d698c7?auto=format&fit=crop&w=400&q=80" }, /* 圖片共用示意 */
+            { id: "T001", category: "茶水間備品", name: "UCC 職人經典濾掛式咖啡 (50入)", price: 750, image: "https://images.unsplash.com/photo-1559525839-b184a4d698c7?auto=format&fit=crop&w=400&q=80" },
+            { id: "T002", category: "茶水間備品", name: "天仁茗茶 醇品紅茶包 (100入)", price: 350, image: "https://images.unsplash.com/photo-1559525839-b184a4d698c7?auto=format&fit=crop&w=400&q=80" }, 
 
             // 家具桌椅
-            { id: "D001", category: "家具桌椅", name: "人體工學椅 - 經典旗艦款", price: 3200, isNew: false, image: "https://images.unsplash.com/photo-1505843490538-5133c6c7d0e1?auto=format&fit=crop&w=400&q=80" },
-            { id: "D002", category: "家具桌椅", name: "辦公室升降桌 (120cm/白色)", price: 6500, isNew: false, image: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?auto=format&fit=crop&w=400&q=80" }
+            { id: "D001", category: "家具桌椅", name: "人體工學椅 - 經典旗艦款", price: 3200, image: "https://images.unsplash.com/photo-1505843490538-5133c6c7d0e1?auto=format&fit=crop&w=400&q=80" },
+            { id: "D002", category: "家具桌椅", name: "辦公室升降桌 (120cm/原木色)", price: 6500, image: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?auto=format&fit=crop&w=400&q=80" }
         ];
 
-        // ==========================================
-        // 初始化與動態渲染功能
-        // ==========================================
         window.onload = function() {
             initSelectOptions();
-            filterCategory('全部商品'); // 預設顯示全部商品
+            filterCategory('全部商品'); 
         };
 
-        // 動態生成下拉選單 (依賴分類群組 optgroup)
         function initSelectOptions() {
             const select = document.getElementById('itemSelect');
-            select.innerHTML = '<option value="" disabled selected>請選擇物品</option>';
+            select.innerHTML = '<option value="" disabled selected>請選擇欲採購的物品</option>';
             
-            // 取出所有不重複的分類
             const categories = [...new Set(products.map(p => p.category))];
             
             categories.forEach(cat => {
                 const optgroup = document.createElement('optgroup');
-                optgroup.label = `--- ${cat} ---`;
+                optgroup.label = `— ${cat} —`;
                 
                 products.filter(p => p.category === cat).forEach(p => {
                     const opt = document.createElement('option');
@@ -297,9 +513,7 @@
             });
         }
 
-        // 點擊左邊選單，過濾並重新渲染商品
         function filterCategory(categoryName) {
-            // 更新左邊選單的 Active (反白) 狀態
             const items = document.querySelectorAll('.category-item');
             items.forEach(item => {
                 item.classList.remove('active');
@@ -308,24 +522,19 @@
                 }
             });
 
-            // 更新標題
             document.getElementById('current-category-title').textContent = categoryName;
 
-            // 過濾資料
             let filteredProducts = products;
             if (categoryName !== '全部商品') {
                 filteredProducts = products.filter(p => p.category === categoryName);
             }
 
-            // 將過濾後的資料渲染到畫面上
             const container = document.getElementById('product-grid-container');
-            container.innerHTML = ''; // 先清空目前的商品
+            container.innerHTML = ''; 
 
             filteredProducts.forEach(p => {
-                const newBadge = p.isNew ? `<div class="badge-new">新品</div>` : '';
                 const cardHTML = `
                     <div class="product-card">
-                        ${newBadge}
                         <div class="img-box">
                             <img src="${p.image}" alt="${p.name}">
                         </div>
@@ -333,7 +542,7 @@
                             <div class="item-id">#${p.id}</div>
                             <div class="item-name">${p.name}</div>
                             <div class="item-price">NT$ ${p.price.toLocaleString()}</div>
-                            <button class="add-btn" onclick="quickApply('${p.id}')">加入申請</button>
+                            <button class="add-btn" onclick="quickApply('${p.id}')">加入清單</button>
                         </div>
                     </div>
                 `;
@@ -341,30 +550,37 @@
             });
         }
 
-        // 點擊卡片「加入申請」快速填單
         function quickApply(id) {
             document.getElementById('itemSelect').value = id;
             updateFormUI(id);
             document.getElementById('apply-form-anchor').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // 手動選擇下拉選單
         function onManualSelect() {
             const id = document.getElementById('itemSelect').value;
             updateFormUI(id);
         }
 
-        // 更新表單顯示資訊
         function updateFormUI(id) {
             const p = products.find(i => i.id === id);
             if(p) {
-                document.getElementById('form-display-image').src = p.image;
+                // 隱藏預設圖標，顯示真實圖片
+                document.getElementById('placeholder-state').style.display = 'none';
+                const imgEl = document.getElementById('form-display-image');
+                imgEl.style.display = 'block';
+                
+                // 圖片淡入效果
+                imgEl.style.opacity = 0;
+                setTimeout(() => {
+                    imgEl.src = p.image;
+                    imgEl.style.opacity = 1;
+                }, 100);
+                
                 document.getElementById('form-display-title').textContent = p.name;
                 calculateTotal();
             }
         }
 
-        // 計算總額
         function calculateTotal() {
             const id = document.getElementById('itemSelect').value;
             const qty = document.getElementById('itemQuantity').value || 1;
@@ -372,11 +588,13 @@
             if(p) {
                 const total = p.price * qty;
                 document.getElementById('form-display-price').textContent = `NT$ ${total.toLocaleString()}`;
+                
+                // 更新顯示與隱藏的值
+                document.getElementById('itemPriceDisplay').value = `NT$ ${total.toLocaleString()}`;
                 document.getElementById('itemPrice').value = `NT$ ${total.toLocaleString()}`;
             }
         }
 
-        // 產生獨立的訂單編號
         function generateOrderId() {
             const date = new Date();
             const dateString = date.getFullYear() + 
@@ -387,34 +605,35 @@
         }
 
         // ==========================================
-        // 【保留】這裡依然使用你專屬的 API 網址
+        // 專屬 API 網址
         // ==========================================
         const scriptURL = 'https://script.google.com/macros/s/AKfycbz0mIvcADAvPHaPnQvchyKOu9P6EMaere-At9hFYBpMaRwGQ53piNKLFoHAN9NIOQ4/exec';
         
         document.getElementById('purchase-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const btn = document.getElementById('submit-btn');
-            btn.textContent = '處理中...';
+            btn.textContent = '申請傳送中...';
             btn.disabled = true;
 
             const orderId = generateOrderId();
-
             const formData = new FormData();
             formData.append('orderId', orderId);
             formData.append('applicantName', document.getElementById('applicantName').value);
             formData.append('department', document.getElementById('department').value);
-            // 抓取被選中物品的文字名稱
             formData.append('itemName', document.getElementById('itemSelect').options[document.getElementById('itemSelect').selectedIndex].text);
             formData.append('itemQuantity', document.getElementById('itemQuantity').value);
             formData.append('itemPrice', document.getElementById('itemPrice').value);
 
-            // 送出資料
             fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
             .then(() => {
-                alert('🎉 申請成功！單號：' + orderId);
-                location.reload(); // 送出成功後重整網頁
+                alert('🎉 申請成功！單號：' + orderId + '\n我們已收到您的採購需求。');
+                location.reload(); 
             })
-            .catch(err => alert('出錯了：' + err));
+            .catch(err => {
+                alert('出錯了，請確認網路連線再試一次。');
+                btn.textContent = '確認送出';
+                btn.disabled = false;
+            });
         });
     </script>
 </body>
