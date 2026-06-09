@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企業內部採購系統 | E-Commerce Style</title>
+    <!-- 引入 Google 字體 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- 引入 FontAwesome 圖示 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #2563eb;       /* 品牌主色：現代科技藍 */
+            --primary-hover: #1d4ed8;
+            --bg-color: #f3f4f6;      /* 背景淺灰色 */
+            --card-bg: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --border-color: #e5e7eb;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        /* 核心卡片佈局：分為左右兩區塊 */
+        .ecommerce-card {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            display: flex;
+            max-width: 1000px;
+            width: 100%;
+            overflow: hidden;
+            flex-direction: row;
+        }
+
+        /* 左側：商品展示區 */
+        .product-showcase {
+            flex: 1;
+            background-color: #f8fafc;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-right: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .product-image-container {
+            width: 100%;
+            max-width: 350px;
+            aspect-ratio: 1 / 1;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .product-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+
+        .product-title-display {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .product-price-display {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+        }
+
+        .product-price-display span {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        /* 右側：表單填寫區 */
+        .form-section {
+            flex: 1;
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-header {
+            margin-bottom: 30px;
+        }
+
+        .form-header h2 {
+            margin: 0 0 8px 0;
+            font-size: 1.75rem;
+            color: var(--text-main);
+        }
+
+        .form-header p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* 表單元素設計 */
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            font-size: 1rem;
+        }
+
+        .input-group input, 
+        .input-group select {
+            width: 100%;
+            padding: 12px 12px 12px 40px; /* 留出左側 icon 空間 */
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            color: var(--text-main);
+            box-sizing: border-box;
+            transition: all 0.2s ease;
+            background-color: #fff;
+            appearance: none; /* 移除預設箭頭以便客製化 */
+        }
+
+        /* 下拉選單客製化箭頭 */
+        .select-wrapper::after {
+            content: '\f107'; /* FontAwesome 下箭頭 */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            pointer-events: none;
+        }
+
+        .input-group input:focus, 
+        .input-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        /* 唯讀狀態的輸入框（自動計算的金額） */
+        .input-group input[readonly] {
+            background-color: #f9fafb;
+            color: var(--primary);
+            font-weight: 700;
+            cursor: not-allowed;
+        }
+
+        /* 送出按鈕 */
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+        }
+
+        .submit-btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .submit-btn:disabled {
+            background-color: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* RWD 響應式設計：在手機螢幕上改成上下排列 */
+        @media (max-width: 800px) {
+            .ecommerce-card {
+                flex-direction: column;
+            }
+            .product-showcase {
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                padding: 30px 20px;
+            }
+            .form-section {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ecommerce-card">
+        
+        <!-- 左側：電商感商品展示區 -->
+        <div class="product-showcase">
+            <div class="product-image-container">
+                <!-- 預設圖片 -->
+                <img id="display-image" src="https://images.unsplash.com/photo-1585336261022-680e295ce3fe?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="商品預覽圖">
+            </div>
+            <div class="product-title-display" id="display-title">請選擇申請物品</div>
+            <div class="product-price-display">
+                <span>NT$</span>
+                <span id="display-price">0</span>
+            </div>
+        </div>
+
+        <!-- 右側：資料填寫表單 -->
+        <div class="form-section">
+            <div class="form-header">
+                <h2>辦公用品申請</h2>
+                <p>請填寫基本資料並選擇您需要的辦公用品。</p>
+            </div>
+
+            <form id="purchase-form">
+                <!-- 申請人姓名 -->
+                <div class="input-group">
+                    <label for="applicantName">申請人姓名</label>
+                    <div class="input-wrapper">
+                        <i class="fa-regular fa-user"></i>
+                        <input type="text" id="applicantName" placeholder="例如：王小明" required>
+                    </div>
+                </div>
+
+                <!-- 申請部門 -->
+                <div class="input-group">
+                    <label for="department">申請部門</label>
+                    <div class="input-wrapper">
+                        <i class="fa-regular fa-building"></i>
+                        <input type="text" id="department" placeholder="例如：行銷部" required>
+                    </div>
+                </div>
+
+                <!-- 物品名稱 (下拉選單) -->
+                <div class="input-group">
+                    <label for="itemSelect">申請物品名稱</label>
+                    <div class="input-wrapper select-wrapper">
+                        <i class="fa-solid fa-box-open"></i>
+                        <select id="itemSelect" required>
+                            <option value="" disabled selected>-- 請選擇要申請的物品 --</option>
+                            <!-- 選項會由 JavaScript 自動生成 -->
+                        </select>
+                    </div>
+                </div>
+
+                <!-- 申請數量 -->
+                <div class="input-group">
+                    <label for="itemQuantity">申請數量</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-hashtag"></i>
+                        <input type="number" id="itemQuantity" min="1" value="1" required>
+                    </div>
+                </div>
+
+                <!-- 自動計算總金額 (唯讀) -->
+                <div class="input-group">
+                    <label for="itemPrice">總金額 (系統自動計算)</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-file-invoice-dollar"></i>
+                        <input type="text" id="itemPrice" placeholder="NT$ 0" readonly>
+                    </div>
+                </div>
+
+                <!-- 送出按鈕 -->
+                <button type="submit" class="submit-btn" id="submit-btn">
+                    <i class="fa-solid fa-cart-arrow-down"></i> 送出採購申請
+                </button>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- 動態腳本：處理資料庫與畫面連動 -->
+    <script>
+        /**
+         * 這裡就是你的「商品資料庫」！
+         * 你可以隨時在這裡新增、修改物品名稱、金額和對應的圖片網址。
+         * 建議找清晰、正方形或比例接近的圖片會最好看。
+         */
+        const productDatabase = [
+            {
+                id: "item_01",
+                name: "紅龍牌 原子筆 (黑/一盒50入)",
+                price: 150,
+                image: "https://images.unsplash.com/photo-1585336261022-680e295ce3fe?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: "item_02",
+                name: "Double A 影印紙 (A4/一箱5包)",
+                price: 650,
+                image: "https://images.unsplash.com/photo-1586075010923-2dd4570fb338?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: "item_03",
+                name: "羅技 M331 靜音無線滑鼠",
+                price: 549,
+                image: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: "item_04",
+                name: "辦公室人體工學椅 (黑色)",
+                price: 3200,
+                image: "https://images.unsplash.com/photo-1505843490538-5133c6c7d0e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            }
+        ];
+
+        // 取得頁面上的元素
+        const itemSelect = document.getElementById('itemSelect');
+        const itemQuantityInput = document.getElementById('itemQuantity');
+        const displayImage = document.getElementById('display-image');
+        const displayTitle = document.getElementById('display-title');
+        const displayPrice = document.getElementById('display-price');
+        const itemPriceInput = document.getElementById('itemPrice');
+        const form = document.getElementById('purchase-form');
+        const submitBtn = document.getElementById('submit-btn');
+
+        // 初始化：將商品資料庫塞入下拉選單
+        function initSelectOptions() {
+            productDatabase.forEach(product => {
+                const option = document.createElement('option');
+                option.value = product.id;
+                option.textContent = product.name;
+                itemSelect.appendChild(option);
+            });
+        }
+
+        // 計算並更新總金額的函數
+        function updateTotalPrice() {
+            const selectedProduct = productDatabase.find(p => p.id === itemSelect.value);
+            // 確保數量是有效數字，如果使用者清空則預設為 1
+            const quantity = parseInt(itemQuantityInput.value) || 1; 
+
+            if (selectedProduct) {
+                const totalPrice = selectedProduct.price * quantity;
+                
+                // 更新左側顯示的總金額
+                displayPrice.textContent = totalPrice.toLocaleString(); // 加上千分位逗號
+
+                // 更新右側表單內的唯讀總金額欄位
+                itemPriceInput.value = `NT$ ${totalPrice.toLocaleString()}`;
+            }
+        }
+
+        // 監聽器：當下拉選單改變時，更新左側圖片並重新計算金額
+        itemSelect.addEventListener('change', function() {
+            // 找到使用者選了哪個商品
+            const selectedProduct = productDatabase.find(p => p.id === this.value);
+            
+            if (selectedProduct) {
+                // 更新左側電商展示區
+                // 為了讓圖片切換有流暢感，加了一點透明度動畫特效
+                displayImage.style.opacity = 0;
+                setTimeout(() => {
+                    displayImage.src = selectedProduct.image;
+                    displayImage.style.opacity = 1;
+                }, 150);
+                
+                displayTitle.textContent = selectedProduct.name;
+                
+                // 每次換商品，預設數量回到 1
+                itemQuantityInput.value = 1;
+
+                // 更新總金額
+                updateTotalPrice();
+            }
+        });
+
+        // 監聽器：當數量改變時，即時重新計算金額
+        itemQuantityInput.addEventListener('input', updateTotalPrice);
+
+        // 頁面載入時執行初始化
+        window.onload = initSelectOptions;
+
+        // ==========================================
+        // 【重要】請將下方網址替換成你的 Google Apps Script 網址
+        // ==========================================
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbz6iP4vKjGdpcGsH6EdJwvIfcwCEyNpM_sC2mWDubWmZtbZ-5G4dw3UuxZ_twaoxrYF/exec';
+
+        // 表單送出事件：將資料打包送到 Google 試算表
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 改變按鈕狀態，防止重複點擊
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 送出中...';
+            submitBtn.disabled = true;
+
+            // 取得下拉選單裡面的「商品名稱」文字 (而不是 ID)
+            const selectedProductName = itemSelect.options[itemSelect.selectedIndex].text;
+
+            // 建立要送出的資料表
+            const formData = new FormData();
+            formData.append('applicantName', document.getElementById('applicantName').value);
+            formData.append('department', document.getElementById('department').value);
+            formData.append('itemName', selectedProductName);
+            formData.append('itemQuantity', document.getElementById('itemQuantity').value);
+            formData.append('itemPrice', document.getElementById('itemPrice').value);
+
+            // 透過 fetch API 發送資料
+            fetch(scriptURL, { method: 'POST', body: formData })
+                .then(response => {
+                    alert('🎉 申請成功！資料已送出。');
+                    // 清空表單並恢復預設按鈕
+                    form.reset();
+                    displayTitle.textContent = '請選擇申請物品';
+                    displayPrice.textContent = '0';
+                    itemQuantityInput.value = 1;
+                    submitBtn.innerHTML = '<i class="fa-solid fa-cart-arrow-down"></i> 送出採購申請';
+                    submitBtn.disabled = false;
+                })
+                .catch(error => {
+                    console.error('Error!', error.message);
+                    alert('發生錯誤，請稍後再試。');
+                    submitBtn.innerHTML = '<i class="fa-solid fa-cart-arrow-down"></i> 送出採購申請';
+                    submitBtn.disabled = false;
+                });
+        });
+    </script>
+</body>
+</html>
