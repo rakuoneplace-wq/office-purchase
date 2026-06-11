@@ -203,13 +203,46 @@
         @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
         @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
 
+        /* ==================================
+           RWD 響應式手機版設定
+           ================================== */
         @media (max-width: 1000px) { 
-            .shop-container { grid-template-columns: 1fr; padding: 20px; } 
-            aside { display: none; } 
+            /* 將左右雙欄改成單欄上下排列 */
+            .shop-container { display: flex; flex-direction: column; padding: 20px; gap: 20px; } 
+            
+            /* 將左側隱藏的選單變成橫向滾動的「藥丸按鈕」 */
+            aside { display: block; position: static; height: auto; width: 100%; border-bottom: 1px solid var(--border); padding-bottom: 15px; } 
+            .category-title { display: none; } /* 手機版隱藏「商品分類」標題省空間 */
+            .category-list { display: flex; overflow-x: auto; border-left: none; gap: 10px; padding-bottom: 5px; -webkit-overflow-scrolling: touch; }
+            .category-list::-webkit-scrollbar { height: 4px; }
+            .category-list::-webkit-scrollbar-thumb { background: #dcdcdc; border-radius: 10px; }
+            
+            .category-item { border: none; margin: 0; background: var(--input-bg); border-radius: 20px; white-space: nowrap; padding: 8px 16px; font-size: 0.9rem; }
+            .category-item.active { background: var(--primary); color: #fff; border: none; }
+
             .checkout-container { padding: 20px; }
-            .checkout-card { padding: 20px; }
-            .cart-row { flex-wrap: wrap; gap: 15px; }
-            .row-total { width: auto; flex: 1; text-align: right; }
+            .checkout-card { padding: 25px 20px; }
+            
+            /* 手機版購物車清單排版重整 */
+            .cart-row { position: relative; flex-direction: column; align-items: flex-start; gap: 15px; padding: 20px 0; }
+            .cart-item-info { width: 100%; }
+            .row-total { width: 100%; text-align: left; font-size: 1.1rem; color: var(--primary); margin-top: 5px; }
+            .remove-btn { position: absolute; right: 0; top: 20px; margin: 0; background: #fff5f5; padding: 8px; border-radius: 8px; }
+        }
+
+        @media (max-width: 600px) {
+            header { padding: 12px 20px; }
+            .user-info { display: none; } /* 極小螢幕隱藏文字省空間 */
+            .cart-btn span.text { display: none; } /* 只留購物車圖示 */
+            
+            .hero-banner img { height: 160px; }
+            main { gap: 25px; }
+            
+            /* 商品網格在手機版變成兩排小卡片 */
+            .product-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
+            .img-box { padding: 10px; }
+            .item-name { font-size: 0.9rem; height: 2.6rem; }
+            .item-price { font-size: 1rem; }
         }
     </style>
 </head>
@@ -235,7 +268,7 @@
          視圖 1：首頁商店區 (預設顯示)
          ========================================== -->
     <div id="shop-view" class="shop-container">
-        <!-- 左側分類選單 -->
+        <!-- 左側分類選單 (手機版會變成上方橫向滑動選單) -->
         <aside>
             <div class="category-title">商品分類</div>
             <ul class="category-list">
@@ -454,13 +487,13 @@
                         </div>
                         
                         <div class="qty-controls">
-                            <button class="qty-btn" onclick="changeQty('${item.id}', -1)"><i class="fa-solid fa-minus"></i></button>
+                            <button type="button" class="qty-btn" onclick="changeQty('${item.id}', -1)"><i class="fa-solid fa-minus"></i></button>
                             <div class="qty-display">${item.qty}</div>
-                            <button class="qty-btn" onclick="changeQty('${item.id}', 1)"><i class="fa-solid fa-plus"></i></button>
+                            <button type="button" class="qty-btn" onclick="changeQty('${item.id}', 1)"><i class="fa-solid fa-plus"></i></button>
                         </div>
 
                         <div class="row-total">NT$ ${itemTotal.toLocaleString()}</div>
-                        <button class="remove-btn" onclick="removeFromCart('${item.id}')"><i class="fa-solid fa-trash-can"></i></button>
+                        <button type="button" class="remove-btn" onclick="removeFromCart('${item.id}')"><i class="fa-solid fa-trash-can"></i></button>
                     </div>
                 `;
             });
