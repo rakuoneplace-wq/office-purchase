@@ -287,9 +287,9 @@
         </aside>
 
         <main>
-            <!-- ▼▼▼ 請在下方 src 替換成你自己的 Banner 圖片網址 ▼▼▼ -->
+            <!-- ▼▼▼ 已替換為專屬 Banner 圖片網址 ▼▼▼ -->
             <div class="hero-banner">
-                <img src="https://drive.google.com/uc?export=view&id=1TXBykMuvHRxH_qZLzxyPcigyEAOa6uGW" alt="一方生活">
+                <img src="https://i.meee.com.tw/iUlS8wx.jpg" alt="一方生活">
             </div>
 
             <div class="section-title" id="current-category-title">全部商品</div>
@@ -534,7 +534,10 @@
 
         const scriptURL = 'https://script.google.com/macros/s/AKfycbz0mIvcADAvPHaPnQvchyKOu9P6EMaere-At9hFYBpMaRwGQ53piNKLFoHAN9NIOQ4/exec';
         
-        document.getElementById('purchase-form').addEventListener('submit', function(e) {
+        document.getElementById('purchase-form').addEventListener(
+            
+            
+            'submit', function(e) {
             e.preventDefault();
             
             const btn = document.getElementById('submit-btn');
@@ -551,7 +554,7 @@
             formData.append('applicantName', document.getElementById('applicantName').value);
             formData.append('department', document.getElementById('department').value);
             formData.append('itemName', itemsText);
-            formData.append('itemQuantity', totalQty);
+            formData.append('itemQuantity', totalQty); // 純數字傳送
             formData.append('itemPrice', `NT$ ${grandTotalValue.toLocaleString()}`);
 
             fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
