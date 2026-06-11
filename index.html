@@ -516,7 +516,7 @@
             formData.append('applicantName', document.getElementById('applicantName').value);
             formData.append('department', document.getElementById('department').value);
             formData.append('itemName', itemsText);
-            formData.append('itemQuantity', `總件數: ${totalQty}`);
+            formData.append('itemQuantity', totalQty);
             formData.append('itemPrice', `NT$ ${grandTotalValue.toLocaleString()}`);
 
             fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
