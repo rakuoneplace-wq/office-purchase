@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>一方生活 | 同事採購網</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -204,45 +204,48 @@
         @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
 
         /* ==================================
-           RWD 響應式手機版設定
+           RWD 響應式手機版設定 (強化版)
            ================================== */
         @media (max-width: 1000px) { 
             /* 將左右雙欄改成單欄上下排列 */
-            .shop-container { display: flex; flex-direction: column; padding: 20px; gap: 20px; } 
+            .shop-container { display: flex; flex-direction: column; padding: 15px; gap: 15px; } 
             
-            /* 將左側隱藏的選單變成橫向滾動的「藥丸按鈕」 */
-            aside { display: block; position: static; height: auto; width: 100%; border-bottom: 1px solid var(--border); padding-bottom: 15px; } 
-            .category-title { display: none; } /* 手機版隱藏「商品分類」標題省空間 */
-            .category-list { display: flex; overflow-x: auto; border-left: none; gap: 10px; padding-bottom: 5px; -webkit-overflow-scrolling: touch; }
-            .category-list::-webkit-scrollbar { height: 4px; }
-            .category-list::-webkit-scrollbar-thumb { background: #dcdcdc; border-radius: 10px; }
+            /* 頂部選單優化 */
+            header { padding: 12px 20px; }
+            .user-info { display: none; } /* 隱藏不必要的文字 */
+            .cart-btn span.text { display: none; } /* 只保留購物車圖示 */
             
-            .category-item { border: none; margin: 0; background: var(--input-bg); border-radius: 20px; white-space: nowrap; padding: 8px 16px; font-size: 0.9rem; }
+            /* 讓左側分類變成橫向滾動的「藥丸按鈕」 */
+            aside { display: block; position: static; height: auto; width: 100%; padding-bottom: 5px; border-bottom: none; } 
+            .category-title { display: none; } /* 手機版隱藏標題 */
+            .category-list { display: flex; overflow-x: auto; border-left: none; gap: 12px; padding-bottom: 10px; -webkit-overflow-scrolling: touch; }
+            .category-list::-webkit-scrollbar { display: none; } /* 隱藏醜醜的滾動條 */
+            
+            .category-item { border: none; margin: 0; background: var(--input-bg); border-radius: 20px; white-space: nowrap; padding: 10px 20px; font-size: 0.95rem; }
             .category-item.active { background: var(--primary); color: #fff; border: none; }
 
-            .checkout-container { padding: 20px; }
-            .checkout-card { padding: 25px 20px; }
-            
-            /* 手機版購物車清單排版重整 */
-            .cart-row { position: relative; flex-direction: column; align-items: flex-start; gap: 15px; padding: 20px 0; }
-            .cart-item-info { width: 100%; }
-            .row-total { width: 100%; text-align: left; font-size: 1.1rem; color: var(--primary); margin-top: 5px; }
-            .remove-btn { position: absolute; right: 0; top: 20px; margin: 0; background: #fff5f5; padding: 8px; border-radius: 8px; }
-        }
+            /* 縮小 Banner 在手機上的高度 */
+            .hero-banner img { height: 150px; }
+            main { gap: 20px; }
 
-        @media (max-width: 600px) {
-            header { padding: 12px 20px; }
-            .user-info { display: none; } /* 極小螢幕隱藏文字省空間 */
-            .cart-btn span.text { display: none; } /* 只留購物車圖示 */
-            
-            .hero-banner img { height: 160px; }
-            main { gap: 25px; }
-            
-            /* 商品網格在手機版變成兩排小卡片 */
-            .product-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
-            .img-box { padding: 10px; }
+            /* 強制手機版為「兩排」網格排列 */
+            .product-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .img-box { padding: 10px; border-radius: 10px; margin-bottom: 10px; }
             .item-name { font-size: 0.9rem; height: 2.6rem; }
             .item-price { font-size: 1rem; }
+            .add-btn { font-size: 0.9rem; padding: 8px; }
+
+            /* 結帳頁面手機版優化 */
+            .checkout-container { padding: 15px; }
+            .checkout-card { padding: 25px 20px; border-radius: 16px; }
+            .form-section { padding: 20px; margin-top: 25px; }
+            
+            /* 手機版購物車清單排版重整 (避免按鈕擠在一起) */
+            .cart-row { position: relative; flex-direction: column; align-items: flex-start; gap: 15px; padding: 20px 0; }
+            .cart-item-info { width: 100%; }
+            .qty-controls { align-self: flex-start; }
+            .row-total { width: 100%; text-align: left; font-size: 1.1rem; color: var(--primary); margin-top: 5px; }
+            .remove-btn { position: absolute; right: 0; top: 15px; margin: 0; background: #fff5f5; padding: 8px 12px; border-radius: 8px; }
         }
     </style>
 </head>
@@ -285,9 +288,8 @@
 
         <main>
             <!-- ▼▼▼ 請在下方 src 替換成你自己的 Banner 圖片網址 ▼▼▼ -->
-            <!-- 支援網址格式，如果是 Google Drive，請使用 uc?export=view&id=檔案ID 的格式 -->
             <div class="hero-banner">
-                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80" alt="一方生活">
+                <img src="https://drive.google.com/uc?export=view&id=1TXBykMuvHRxH_qZLzxyPcigyEAOa6uGW" alt="一方生活">
             </div>
 
             <div class="section-title" id="current-category-title">全部商品</div>
